@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Pratica 04</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        form {
+            /* Apenas para centralizar o form na página */
+            margin: 0 auto;
+            width: 500px;
+            /* Para ver as bordas do formulário */
+            padding: 1em;
+            border: 1px solid #CCC;
+            border-radius: 1em;
+        }
+        form div + div {
+            margin-top: 1em;
+        }
+        label {
+            /*Para ter certeza que todas as labels tem o mesmo tamanho e estão propriamente alinhadas */
+            display: inline-block;
+            width: 140px;
+            text-align: right;
+        }
+        input[type=text], input[type=email], select, textarea {
+            /* Para certificar-se que todos os campos de texto têm as mesmas configurações de fonte. Por padrão, textareas ter uma fonte monospace*/
+            font: 1em sans-serif;
+
+            /* Para dar o mesmo tamanho a todos os campo de texto */
+            width: 300px;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+            /* Para harmonizar o look & feel das bordas nos campos de texto*/
+            border: 1px solid #999;
+        }
+        input:focus, textarea:focus {
+            /* Dar um pouco de destaque nos elementos ativos */
+            border-color: #000;
+        }
+        textarea {
+            /* Para alinhar corretamente os campos de texto de várias linhas com sua label*/
+            vertical-align: top;
+
+            /* Para dar espaço suficiente para digitar algum texto */
+            height: 5em;
+
+            /* Para permitir aos usuários redimensionarem qualquer textarea verticalmente. Ele não funciona em todos os browsers */
+            resize: vertical;
+        }
+        .button {
+            /* Para posicionar os botões para a mesma posição dos campos de texto */
+            padding-left: 90px; /* mesmo tamanho que os elementos do tipo label */
+        }
+        button {
+            /* Esta margem extra representa aproximadamente o mesmo espaço que o espaço entre as labels e os seus campos de texto*/
+            margin-left: .5em;
+            background-color: #044caa;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border-radius: 12px;
+        }
+    </style>
+  </head>
+  <body>
+    <form action="/enviar-para-servidor" method="post">
+        <div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" />
+        </div>
+        <div>
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="date" id="dataNasc" />
+        </div>
+        <div>
+            <label for="sexo">Sexo:</label>
+            <input type="radio" id="sexoMasculino" name="sexoGenero">Masculino</input>
+            <input type="radio" id="sexoFeminino" name="sexoGenero">Feminino</input>
+        </div>
+        <div>
+            <label for="ckb">Cursos:</label>
+            <input type="checkbox" id="ckbProgramacao">Programação</input>
+            <input type="checkbox" id="ckbRedes">Redes</input>
+            <input type="checkbox" id="ckbHardware">Hardware</input>
+            <input type="checkbox" id="ckbOutros">Outros</input>
+        </div>
+        <div>
+            <label for="idiomaDoCurso">Idioma do Curso:</label>
+            <select id="idiomaDoCurso">
+                <option value="0">Selecione</option>
+                <option value="1">Português</option>
+                <option value="2">Inglês</option>
+                <option value="3">Espanhol</option>
+                <option value="4">Frances</option>
+            </select>
+        </div>
+        <div class="button">
+            <button type="button" id="btnEnviar" onclick="exibirMensagem()" >Enviar</button>
+        </div>
+    </form>
+  </body>
+  <script type="text/javascript">
+    function exibirMensagem(){
+        var nome = document.getElementById("name").value;
+        var dataNascimento = document.getElementById("dataNasc").value;
+        var sexoMasculino = document.getElementById("sexoMasculino").checked;
+        var sexo = "Feminino";
+        var ckbProgramacao = document.getElementById("ckbProgramacao").checked;
+        var ckbRedes = document.getElementById("ckbRedes").checked;
+        var ckbHardware = document.getElementById("ckbHardware").checked;
+        var ckbOutros = document.getElementById("ckbOutros").checked;
+        var programacao = "Não";
+        var redes = "Não";
+        var hardware = "Não";
+        var outros = "Não";
+        var idiomaDoCurso = document.getElementById("idiomaDoCurso");
+        var idioma = idiomaDoCurso.options[idiomaDoCurso.selectedIndex].text;
+        var btnEnviar = document.getElementById("btnEnviar");
+
+        if(sexoMasculino == true){
+            sexo = "Masculino";
+        }
+
+        if(ckbProgramacao == true){
+            programacao = "Sim";
+        }
+
+        if(ckbRedes == true){
+            redes = "Sim";
+        }
+
+        if(ckbHardware == true){
+            hardware = "Sim";
+        }
+
+        if(ckbOutros == true){
+            outros = "Sim";
+        }
+
+        alert("Dados enviados:\n" + 
+              "Nome: " + nome + "\n" + 
+              "Data Nascimento: " + dataNascimento + "\n" + 
+              "Sexo: " + sexo + "\n" + 
+              "Cursos: " + 
+              "Programação: " + programacao + " | " + 
+              "Redes: " + redes + " | " + 
+              "Hardware: " + hardware + " | " + 
+              "Outros: " + outros + "\n" + 
+              "Idioma do Curso: " + idioma + "\n" + 
+              "-------------------------------------");
+        
+        //btnEnviar.style.visibility = 'hidden';
+        //btnEnviar.style.background='#000000';
+    }
+
+    function PreencherValores(){
+        var nome = document.getElementById("name");
+        var dataNascimento = document.getElementById("dataNasc");
+        var sexoMasculino = document.getElementById("sexoMasculino");
+        var ckbProgramacao = document.getElementById("ckbProgramacao");
+        var ckbRedes = document.getElementById("ckbRedes");
+        var ckbHardware = document.getElementById("ckbHardware");
+        var ckbOutros = document.getElementById("ckbOutros");
+        var idiomaDoCurso = document.getElementById("idiomaDoCurso");
+        var btnEnviar = document.getElementById("btnEnviar");
+
+        nome.value = "Everton José Benedicto";
+        dataNascimento.value = "1987-05-30";
+        sexoMasculino.checked = true;
+        ckbProgramacao.checked = true;
+        ckbRedes.checked = true;
+        ckbHardware.checked = true;
+        ckbOutros.checked = true;
+        idiomaDoCurso.value = 1;
+    }
+
+    PreencherValores();
+  </script>
+</html>

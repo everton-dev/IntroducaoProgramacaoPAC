@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Meu Primeiro Site</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <form>
+        <div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" />
+        </div>
+        <div>
+            <label for="mail">E-mail:</label>
+            <input type="email" id="mail" />
+        </div>
+        <div>
+            <label for="genero">Sexo:</label>
+            <input type="radio" id="generoMasculino" name="grupoGenero">Masculino</input>
+            <input type="radio" id="generoFeminino" name="grupoGenero">Feminino</input>
+        </div>
+        <div>
+            <label for="profissao">Profissão:</label>
+            <select id="profissao">
+                <option value="0">Selecione</option>
+                <option value="1">Estudante</option>
+                <option value="2">Outros</option>
+            </select>
+        </div>
+        <div>
+            <label for="genero">Interesses:</label>
+            <input type="checkbox" id="ckbMusica">Musica</input>
+            <input type="checkbox" id="ckbEsporte">Esporte</input>
+            <input type="checkbox" id="ckbTecnologia">Tecnologia</input>
+        </div>
+        <div class="button">
+            <button type="button">Enviar sua mensagem</button>
+        </div>
+    </form>
+  </body>
+</html>
