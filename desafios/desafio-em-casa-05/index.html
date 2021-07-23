@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Desafio Em Casa 05</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+            form {
+                /* Apenas para centralizar o form na página */
+                margin: 0 auto;
+                width: 50%;
+                /* Para ver as bordas do formulário */
+                padding: 2%;
+                border: 1px solid #CCC;
+                border-radius: 1em;
+            }
+            form div + div {
+                margin-top: 10px;
+            }
+            label {
+                /*Para ter certeza que todas as labels tem o mesmo tamanho e estão propriamente alinhadas */
+                display: inline-block;
+                width: 40%;
+                text-align: right;
+            }
+            input[type=text], input[type=email], select, textarea {
+                /* Para certificar-se que todos os campos de texto têm as mesmas configurações de fonte. Por padrão, textareas ter uma fonte monospace*/
+                font: 1em sans-serif;
+
+                /* Para dar o mesmo tamanho a todos os campo de texto */
+                width: 300px;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+
+                /* Para harmonizar o look & feel das bordas nos campos de texto*/
+                border: 1px solid #999;
+            }
+            input:focus, textarea:focus {
+                /* Dar um pouco de destaque nos elementos ativos */
+                border-color: #000;
+            }
+            .button {
+                /* Para posicionar os botões para a mesma posição dos campos de texto */
+                padding-left: 40%; /* mesmo tamanho que os elementos do tipo label */
+            }
+            button {
+                /* Esta margem extra representa aproximadamente o mesmo espaço que o espaço entre as labels e os seus campos de texto*/
+                margin-left: .5em;
+                background-color: #044caa;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                border-radius: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <div>
+                <label for="txtNome">Nome:</label>
+                <input type="text" id="txtNome" />
+            </div>
+            <div>
+                <label for="txtDataNascimento">Dt. Nascimento:</label>
+                <input type="date" id="txtDataNascimento" />
+            </div>
+            <div>
+                <label for="sltEstados">Estado:</label>
+                <select id="sltEstados">
+                    <option value="--">Selecione</option>
+                    <option value ="AC">Acre</option>
+                    <option value ="AL">Alagoas</option>
+                    <option value ="AP">Amapá</option>
+                    <option value ="AM">Amazonas</option>
+                    <option value ="BA">Bahia</option>
+                    <option value ="CE">Ceará</option>
+                    <option value ="ES">Espírito Santo</option>
+                    <option value ="GO">Goiás</option>
+                    <option value ="MA">Maranhão</option>
+                    <option value ="MT">Mato Grosso</option>
+                    <option value ="MS">Mato Grosso do Sul</option>
+                    <option value ="MG">Minas Gerais</option>
+                    <option value ="PA">Pará</option>
+                    <option value ="PB">Paraíba</option>
+                    <option value ="PR">Paraná</option>
+                    <option value ="PE">Pernambuco</option>
+                    <option value ="PI">Piauí</option>
+                    <option value ="RJ">Rio de Janeiro</option>
+                    <option value ="RN">Rio Grande do Norte</option>
+                    <option value ="RS">Rio Grande do Sul</option>
+                    <option value ="RO">Rondônia</option>
+                    <option value ="RR">Roraima</option>
+                    <option value ="SC">Santa Catarina</option>
+                    <option value ="SP">São Paulo</option>
+                    <option value ="SE">Sergipe</option>
+                    <option value ="TO">Tocantins</option>
+                    <option value ="DF">Distrito Federal</option>
+                </select>
+            </div>
+            <div>
+                <label for="rdoRecomendacaoSim">Recomendaria os nossos produtos?</label>
+                <input type="radio" id="rdoRecomendacaoSim" name="recomendacao">Sim</input>
+                <input type="radio" id="rdoRecomendacaoNao" name="recomendacao">Não</input>
+            </div>
+            <div>
+                <label for="rdoClassificacao1">Como classificaria o nosso atendimento?</label>
+                <input type="radio" id="rdoClassificacao1" name="classificacao">1</input>
+                <input type="radio" id="rdoClassificacao2" name="classificacao">2</input>
+                <input type="radio" id="rdoClassificacao3" name="classificacao">3</input>
+                <input type="radio" id="rdoClassificacao4" name="classificacao">4</input>
+                <input type="radio" id="rdoClassificacao5" name="classificacao">5</input>
+            </div>
+            <hr />
+            <div class="button">
+                <button type="button" id="btnEnviar" onclick="EnviarFormulario()">Enviar</button>
+            </div>
+        </form>
+    </body>
+    <script type="text/javascript">
+
+        function Init(){
+            document.getElementById("rdoRecomendacaoSim").checked = true;
+            document.getElementById("rdoClassificacao5").checked = true;
+        }
+
+        function EnviarFormulario(){
+            if (ValidarFormulario()) {
+                window.location.href = "segunda-pagina.html";
+            }
+        }
+
+        function ValidarFormulario(){
+            var nome = document.getElementById("txtNome").value;
+            var dataNascimento = document.getElementById("txtDataNascimento").value;
+            var sltEstados = document.getElementById("sltEstados");
+            var estado = sltEstados.options[sltEstados.selectedIndex].text;
+
+            if(nome == ''){
+                alert("Preencha o seu nome.");
+                return false;
+            }
+
+            if(dataNascimento == ''){
+                alert("Preencha a sua data de nascimento.");
+                return false;
+            }
+
+            var dataHoje =new Date();
+            var dataNasc = new Date(dataNascimento);
+            var anos = new Date(new Date(dataHoje - dataNasc)).getFullYear() - 1970;
+
+            if (anos <= 10) {
+                alert(`Você possui ${anos} anos, permitido envio para maiores de 10 anos.`);
+                return false;
+            }
+            else if (anos > 100) {
+                alert(`Você possui ${anos} anos, permitido envio para pessoas de 10 à 100 anos.`);
+                return false;
+            }
+
+            if(dataNascimento == ''){
+                alert("A a sua Data de Nascimento.");
+                return false;
+            }
+
+            if(estado == '--'){
+                alert("Selecione o seu estado.");
+                return false;
+            }
+
+            return true;
+        }
+
+        Init();
+    </script>
+</html>
